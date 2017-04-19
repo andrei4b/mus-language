@@ -1,0 +1,100 @@
+start =
+    uppercase
+uppercase =
+    [A-Z]
+
+--
+
+start =
+    countrycode
+    
+lowercase = 
+	[a-z]
+
+countrycode =
+	first:lowercase second:lowercase
+    	{ return first + second; }
+
+
+//parse a word, all lowercase or all uppercase
+start =
+    word
+
+word =
+    lowercase
+  / uppercase
+
+lowercase =
+    l:[a-z] +
+    {return l.join("")}
+        
+uppercase =
+    l:[A-Z] +
+    {return l.join("")}    
+        
+
+//parse wordlist
+start =
+    wordlist
+    
+word = 
+	w:[a-z]+
+    {return w.join("");}
+  / [" "] s:word
+  	{return s;}
+
+wordlist =
+	l:word+
+    {return l;}
+        
+
+
+//Scheem grammar
+start =
+    expression
+
+validchar
+    = [0-9a-zA-Z_?!+\-=@#$%^&*/.]
+
+atom =
+    chars:validchar+
+        { return chars.join(""); }
+
+expression =
+	[" "]* a:atom
+    {return a;}
+  / [" "]* list:expression_list
+  	{return list;}
+   
+expression_list =
+	"(" e:expression+ ")"
+    {return e;}
+
+
+//Addition, Multiplication, Comma
+start =
+    comma
+    
+comma = 
+	left:additive "," right:comma
+    	{ return {tag: ",", left:left, right:right}; }
+  / additive
+
+additive =
+    left:multiplicative "+" right:additive
+        { return {tag: "+", left:left, right:right}; }
+  / multiplicative
+
+multiplicative =
+    left:primary "*" right:multiplicative
+        { return {tag: "*", left:left, right:right}; }
+  / primary
+
+primary =
+    integer
+  / "(" comma:comma ")"
+      { return comma; }
+
+integer =
+    digits:[0-9]+
+        { return parseInt(digits.join(""), 10); }
