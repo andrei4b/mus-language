@@ -1,0 +1,29 @@
+{
+  "name": "scheem",
+  "version": "1.0.0",
+  "description": "",
+  "main": "js/evalScheem.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "\"echo \\\"Error\\\" && exit 1\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrei4b/mus-language.git"
+  },
+  "keywords": [
+    "sch"
+  ],
+  "author": "andreib",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrei4b/mus-language/issues"
+  },
+  "homepage": "https://github.com/andrei4b/mus-language#readme",
+  "dependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.3.0"
+  }
+}

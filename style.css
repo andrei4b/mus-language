@@ -1,0 +1,47 @@
+.codebutton {
+  background-color: #000066;
+  margin: 3px 1px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  display: inline-block;
+  border: 1px solid rgb(152, 156, 102);
+  color: #ffffff;
+  font-size: 0.9em;
+  cursor: pointer;
+}
+
+input[type="button" i] {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  background-color: #770066;
+  padding: 8px 16px;
+  border-radius: 3px;
+  border: 1px solid rgb(152, 156, 102);
+  color: #ffffff;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+#console {
+  background-color: #ccc;
+  font-family: monospace;
+  padding: 2px 5px;
+  max-height: 300px;
+  overflow: auto;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
+#input {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  height: 300px;
+  padding: 10px;
+  overflow: auto;
+}

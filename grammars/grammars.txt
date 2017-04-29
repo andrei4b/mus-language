@@ -38,10 +38,8 @@ start =
     wordlist
     
 word = 
-	w:[a-z]+
-    {return w.join("");}
-  / [" "] s:word
-  	{return s;}
+	[" "]* w:[a-z]+
+  	{return w.join("");}
 
 wordlist =
 	l:word+
@@ -67,7 +65,7 @@ expression =
   	{return list;}
    
 expression_list =
-	"(" e:expression+ ")"
+	"(" e:expression+ [" "]* ")"
     {return e;}
 
 

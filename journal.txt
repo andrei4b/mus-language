@@ -1,0 +1,33 @@
+- Nathansuniversity
+	- Abstract Sintax Tree (compile MUS -> NOTE)
+	* Grammars and PEG Parsers 
+		* Scheem
+		* MUS
+
+~ Learn LISP
+    ~ elm tutorial + lab
+    	- types and evaluation
+    	- basic lists operations
+    	- functions
+    	- predicates
+    	- conditionals
+    	- tail-recursion
+    	- top-level recursion
+    	* tree recursion
+    	- fp specific + iteration
+    	- I/O
+    	- maps + arrays
+    	- macros
+
+    ~ http://www2.cs.sfu.ca/CourseCentral/310/pwfong/Lisp/ 
+        * Tutorial 1: Basic
+        * Tutorial 2: Advanced Functional
+
+
+* Learn JavaScript
+	~ sololearn
+
+
+
+
+$ Own language that compiles in JavaScript	

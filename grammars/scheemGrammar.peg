@@ -1,0 +1,48 @@
+start =
+    expression 
+    
+validchar
+    = [0-9a-zA-Z_?!+\-=@#$%^&*/.]
+    
+whitespace = 
+  [ \t\n]    
+    
+comment =
+    ";;" [^\n]* 
+
+ignored = 
+  whitespace
+  / comment 
+    
+atom =
+    chars:validchar+
+        { var s = chars.join("");
+          if(isNaN(s))
+            return s;
+          else
+            return parseInt(s);
+        }
+    
+expression_list =
+  "(" e:expression* ")"
+    {return e;}
+
+expression_type =
+  a:atom
+    {return a;}
+  / list:expression_list
+    {return list;}
+    
+expression_simple =
+  ignored* e:expression_type ignored*   
+    {return e;}
+    
+expression_quoted =
+  ignored* "'" e:expression_simple
+    {return ["quote", e];}  
+    
+expression = 
+  expression_simple
+  / expression_quoted
+    
+    

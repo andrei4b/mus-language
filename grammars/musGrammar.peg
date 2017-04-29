@@ -1,0 +1,30 @@
+start =
+  note_list
+
+whitespace = 
+  [ \t\n]    
+
+octave =
+  "'''''" / "''''" / "'''" / "''" / "'"
+  / ",,,,," / ",,,," / ",,," / ",," / "," 
+  
+alteration = 
+  "#"
+  / "b"
+  
+pitch =
+  [1-7]
+
+duration =
+    "/////." / "////." / "///." / "//." / "/."
+  / "/////" / "////" / "///" / "//" / "/" 
+  / "*****." / "****." / "***." / "**." / "*."
+  / "*****" / "****" / "***" / "**" / "*"
+  
+
+note =
+  whitespace* n:(octave? alteration? pitch duration?)
+    {return n;}
+    
+note_list =
+   note+
