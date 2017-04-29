@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Scheem</title>
+
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/evalScheem.js"></script>
+    <script src="js/parser.js"></script>
+    
+  </head>
+
+  <body>
+
+    <textarea id="input">(+ 1 2)</textarea>
+
+    <input id="submitbutton" type="button" value="Run"/>
+
+    <div id="console">
+  		<p>This is where output goes.</p>
+	</div>
+
+	<span class='codebutton' data-scheem='12'>Number</span>
+    <span class='codebutton' data-scheem='(+ 4 3)\n;; check out the Result panel below'>Addition</span>
+    <span class='codebutton' data-scheem='(+ 3 (- 7 2))'>Nesting</span>
+
+
+
+	<script src="dynamic.js"> </script>
+
+  </body>
+</html>
