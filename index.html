@@ -13,18 +13,33 @@
 
   <body>
 
-    <textarea id="input">(+ 1 2)</textarea>
+    <div id="big_container">
 
-    <input id="submitbutton" type="button" value="Run"/>
+       <div id="io_container">
 
-    <div id="console">
-  		<p>This is where output goes.</p>
-	</div>
+        <textarea id="input">(+ 1 2)</textarea>
+        <input id="submitbutton" type="button" value="Run"/>
+        <div id="console">
+          <p>This is where output goes.</p>
+        </div>
 
-	<span class='codebutton' data-scheem='12'>Number</span>
-    <span class='codebutton' data-scheem='(+ 4 3)\n;; check out the Result panel below'>Addition</span>
-    <span class='codebutton' data-scheem='(+ 3 (- 7 2))'>Nesting</span>
+       </div>
+      
+      <div id="examples">
+        <p>Code examples:</p>
+        <span class='codebutton' data-scheem='12'>Number</span>
+        <span class='codebutton' data-scheem='(+ 4 3)\n;; check out the Result panel below'>Addition</span>
+        <span class='codebutton' data-scheem='(+ 3 (- 7 2))'>Nesting</span>
+      </div>
 
+    </div>
+
+
+    
+
+    
+
+	
 
 
 	<script src="dynamic.js"> </script>

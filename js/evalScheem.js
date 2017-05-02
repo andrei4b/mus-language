@@ -1,3 +1,24 @@
+var lookup = function (env, v) {
+    if (!(env.hasOwnProperty('bindings')))
+        throw new Error(v + " not found");
+    if (env.bindings.hasOwnProperty(v))
+        return env.bindings[v];
+    return lookup(env.outer, v);
+};
+
+var update = function (env, v, val) {
+    if (!(env.hasOwnProperty('bindings')))
+        throw new Error(v + " not found");
+    if(env.bindings.hasOwnProperty(v))
+        env.bindings[v] = val;
+    else
+        update(env.outer, v, val);
+};
+
+var add_binding = function (env, v, val) {
+    env.bindings[v] = val;
+};
+
 var evalScheem = function (expr, env) {
     // Numbers evaluate to themselves
     if (typeof expr === 'number') {
@@ -5,7 +26,7 @@ var evalScheem = function (expr, env) {
     }
     // Strings are variable references
     if (typeof expr === 'string') {
-        return env[expr];
+        return lookup(env, expr);
     }
     // Look at head of list for operation
     switch (expr[0]) {
@@ -71,21 +92,24 @@ var evalScheem = function (expr, env) {
                 if(typeof expr[1] != 'string')
                     throw new Error("variable must be string!");
 
-                env[expr[1]] = evalScheem(expr[2], env);
+                if(!(env.hasOwnProperty('bindings')))
+                    env.bindings = {};
+                if(!(env.hasOwnProperty('outer')))
+                    env.outer = {};
+                if(env.hasOwnProperty(expr[1]))
+                    throw new Error("Already defined!");
+
+                add_binding(env, expr[1], evalScheem(expr[2], env));
 
                 return 0;
           
         case 'set!':
                 if(expr.length != 3)
                     throw new Error("Wrong number of arguments!");
-
                 if(typeof expr[1] != 'string')
                     throw new Error("variable must be string!");
 
-                if(env.hasOwnProperty(expr[1]))
-                    env[expr[1]] = evalScheem(expr[2], env);
-                else
-                    throw new Error("Must be defined first!");
+                update(env, [expr[1]], evalScheem(expr[2], env));
 
                 return 0;
 
@@ -227,8 +251,31 @@ var evalScheem = function (expr, env) {
                 else 
                     throw new Error("First argument must be a predicate!");
 
+        case 'let-one':
+            var _var = expr[1];
+            var _expr = expr[2];
+            var _body = expr[3];
+            var new_env = {};
+            new_env.bindings = {};
+            new_env.bindings[_var] = evalScheem(_expr, env);
+            new_env.outer = env;
+            return evalScheem(_body, new_env);
+
+        case 'lambda-one':
+            var _var = expr[1];
+            var _body = expr[2];
+            var f = function(_arg) {
+                var new_env = {};
+                new_env.bindings = {};
+                new_env.outer = env;
+                new_env.bindings[_var] = _arg;
+                return evalScheem(_body, new_env);
+            };
+            return f;
+
         default: 
-            throw new Error("Unknown function!");        
+            var f = lookup(env, expr[0]);
+            return f(evalScheem(expr[1], env));        
             
     }
 };

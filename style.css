@@ -1,13 +1,10 @@
-.codebutton {
-  background-color: #000066;
-  margin: 3px 1px;
-  padding: 2px 8px;
-  border-radius: 3px;
+#input {
   display: inline-block;
-  border: 1px solid rgb(152, 156, 102);
-  color: #ffffff;
-  font-size: 0.9em;
-  cursor: pointer;
+  height: 300px;
+  width: 65%;
+  padding: 10px;
+  overflow: auto;
+
 }
 
 input[type="button" i] {
@@ -25,23 +22,43 @@ input[type="button" i] {
   cursor: pointer;
 }
 
+#io_container {
+  
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 65%;
+  text-align: center;
+}
+
+#examples {
+  width: 25%;
+  vertical-align:top; 
+  text-align: center;
+  display: inline-block;
+}
+
+.codebutton {
+  background-color: #000066;
+  margin: 3px 1px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  display: inline-block;
+  border: 1px solid rgb(152, 156, 102);
+  color: #ffffff;
+  font-size: 0.9em;
+  alignment-baseline: after-edge;
+}
+
 #console {
+  display: inline-block;
+  text-align: left;
   background-color: #ccc;
   font-family: monospace;
   padding: 2px 5px;
   max-height: 300px;
   overflow: auto;
   margin: auto;
-  width: 50%;
+  width: 65%;
   padding: 10px;
-}
-
-#input {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-  height: 300px;
-  padding: 10px;
-  overflow: auto;
 }

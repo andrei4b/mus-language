@@ -168,7 +168,10 @@ suite('define & set number', function() {
         evalScheem(['define', 'a', 5], env);
         assert.deepEqual(
             env,
-            {'a':5}
+            {
+                bindings: {'a': 5},
+                outer: {}
+            }
         );
     });
 
@@ -176,7 +179,10 @@ suite('define & set number', function() {
         evalScheem(['define', 'b', 6], env);
         assert.deepEqual(
             env,
-            {'a':5, 'b':6}
+            {
+                bindings: {'a': 5, 'b': 6},
+                outer: {}
+            }
         );
     });
 
@@ -184,7 +190,10 @@ suite('define & set number', function() {
         evalScheem(['set!', 'a', 10], env);
         assert.deepEqual(
             env,
-            {'a':10, 'b':6}
+            {
+                bindings: {'a': 10, 'b': 6},
+                outer: {}
+            }
         );
     });
 
@@ -229,7 +238,10 @@ suite('define & set list', function() {
         evalScheem(['define', 'a', ['quote', 'a']], env);
         assert.deepEqual(
             env,
-            {'a':'a'}
+            {
+                bindings: {'a': 'a'},
+                outer: {}
+            }
         );
     });
     
@@ -237,7 +249,10 @@ suite('define & set list', function() {
         evalScheem(['define', 'b', ['quote', [1, 2, 3]]], env);
         assert.deepEqual(
             env,
-            {'a':'a', 'b':[1, 2, 3]}
+            {
+                bindings: {'a': 'a', 'b': [1, 2, 3]},
+                outer: {}
+            }
         );
     });
 
@@ -245,7 +260,10 @@ suite('define & set list', function() {
         evalScheem(['set!', 'b', ['quote', [1, 2, [3,  4, [5]]]]], env);
         assert.deepEqual(
             env,
-            {'a':'a', 'b':[1, 2, [3,  4, [5]]]}
+            {
+                bindings: {'a': 'a', 'b': [1, 2, [3,  4, [5]]]},
+                outer: {}
+            }
         );
     });
 
