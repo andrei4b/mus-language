@@ -27,9 +27,33 @@
       
       <div id="examples">
         <p>Code examples:</p>
-        <span class='codebutton' data-scheem='12'>Number</span>
-        <span class='codebutton' data-scheem='(+ 4 3)\n;; check out the Result panel below'>Addition</span>
-        <span class='codebutton' data-scheem='(+ 3 (- 7 2))'>Nesting</span>
+        <span class='codebutton' data-scheem='(+ (- 8 2) 7 (* 1 6 2) 5)'>Arithmetics</span>
+        <span class='codebutton' data-scheem='(begin
+  (define x 3)
+  (define y 7)
+  (set! x (+ x 2))
+  (* x y)
+)'>define and set!</span>
+        <span class='codebutton' data-scheem='(begin
+  (define l &#39(b c))
+  (cons &#39(x y z) (cons &#39z l))
+  (cdr (car l))
+)'>List operations</span>
+        <span class='codebutton' data-scheem='(if (= 3 2) &#39#t &#39#f)'>if and predicates</span>
+        <span class='codebutton' data-scheem='(let ((x 1) (y 5) (z 8)) (let* ((x 2) (z x)) (* x y z)))'>let and let*</span>
+        
+        <span class='codebutton' data-scheem='(begin
+   (define factorial
+      (lambda (n)
+         (if (= n 0) 1
+            (* n (factorial (- n 1))))))
+
+   (define double (lambda (x) (* 2 x)))
+
+   (define apply (lambda (f x) (f x)))
+
+   (apply double (factorial 5))
+)'>functions</span>
       </div>
 
     </div>

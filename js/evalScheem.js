@@ -64,6 +64,23 @@ var evalScheem = function (expr, env) {
 
             return product;    
 
+        case '/':
+            if(expr.length < 3)
+                throw new Error("Wrong number of arguments!");
+
+            var len = expr.length;
+            var result = evalScheem(expr[1], env);
+            for(var i = 2; i < len; ++i)
+            {
+                var term = evalScheem(expr[i], env);
+                if(typeof term != 'number')
+                    throw new Error("Only numbers can be added!");
+
+                result = result / term;
+            }
+
+            return result;        
+
         case '-':
             if(expr.length < 3)
                 throw new Error("Wrong number of arguments!");
@@ -138,8 +155,7 @@ var evalScheem = function (expr, env) {
             if(Array.isArray(l) == false)
                 throw new Error("Second argument must be list!");
             
-            l.unshift(evalScheem(expr[1], env));
-
+            l.unshift(evalScheem(expr[1], env))
             return l;
 
         case 'car':
@@ -251,31 +267,74 @@ var evalScheem = function (expr, env) {
                 else 
                     throw new Error("First argument must be a predicate!");
 
-        case 'let-one':
-            var _var = expr[1];
-            var _expr = expr[2];
-            var _body = expr[3];
+        case 'let*':
+            if(expr.length != 3)
+                throw new Error("Wrong number of arguments!");
+
+            var var_expr_pairs = expr[1];
+            var _body = expr[2];
             var new_env = {};
             new_env.bindings = {};
-            new_env.bindings[_var] = evalScheem(_expr, env);
+
             new_env.outer = env;
+
+            for(var i = 0; i < var_expr_pairs.length; ++i)
+            {
+                var _var = var_expr_pairs[i][0];
+                var _expr = var_expr_pairs[i][1];
+                add_binding(new_env, _var, evalScheem(_expr, new_env));
+            }
+            
             return evalScheem(_body, new_env);
 
-        case 'lambda-one':
-            var _var = expr[1];
+        case 'let':
+            if(expr.length != 3)
+                throw new Error("Wrong number of arguments!");
+
+            var var_expr_pairs = expr[1];
             var _body = expr[2];
-            var f = function(_arg) {
+            var new_env = {};
+            new_env.bindings = {};
+
+            for(var i = 0; i < var_expr_pairs.length; ++i)
+            {
+                var _var = var_expr_pairs[i][0];
+                var _expr = var_expr_pairs[i][1];
+                add_binding(new_env, _var, evalScheem(_expr, env));
+            }
+            new_env.outer = env;
+            
+            return evalScheem(_body, new_env);
+
+        case 'lambda':
+            if(expr.length != 3)
+                throw new Error("Wrong number of arguments!");
+
+            var var_list = expr[1];
+            var _body = expr[2];
+
+            var f = function(arg_list) {
+                if(arg_list.length != var_list.length)
+                    throw new Error("Wrong number of arguments!");
+
                 var new_env = {};
                 new_env.bindings = {};
                 new_env.outer = env;
-                new_env.bindings[_var] = _arg;
+
+                for(var i = 0; i < var_list.length; ++i)
+                    add_binding(new_env, var_list[i], arg_list[i]);
+
                 return evalScheem(_body, new_env);
             };
+
             return f;
 
         default: 
             var f = lookup(env, expr[0]);
-            return f(evalScheem(expr[1], env));        
+            var arg_list = [];
+            for(var i = 1; i < expr.length; ++i)
+                arg_list.push(evalScheem(expr[i], env));
+            return f(arg_list);        
             
     }
 };

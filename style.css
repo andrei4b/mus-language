@@ -48,6 +48,7 @@ input[type="button" i] {
   color: #ffffff;
   font-size: 0.9em;
   alignment-baseline: after-edge;
+  cursor: pointer;
 }
 
 #console {
